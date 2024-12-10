@@ -58,7 +58,7 @@ const userSchema = new Schema({
 // what we want is only when the password is changed or saved, only then to encrypt the password, not for any other fields like name, email, avatar etc
 userSchema.pre("save", async function(next){
     if(this.isModified("password")){
-        this.password = bcrypt.hash(this.password,10);
+        this.password = await bcrypt.hash(this.password,10);
         next()
     }else{
         return
